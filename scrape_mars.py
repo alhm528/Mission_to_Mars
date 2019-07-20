@@ -11,9 +11,6 @@ import time
 def init_browser():
     # Replace the path with your actual path to the chromedriver
 
-    # Windows Users
-    # executable_path = {'executable_path': '/Users/cantu/Desktop/Mission-to-Mars'}
-    # return Browser('chrome', **executable_path, headless=False)
     exec_path = {'executable_path': '../chromedriver.exe'}
     return Browser('chrome', headless=False, **exec_path)
 
@@ -81,6 +78,7 @@ def scrape_mars_image():
     soup = BeautifulSoup(image_html, "html.parser")
 
     # find path and make full path
+
     image_path = soup.find('figure', class_='lede').a['href']
 
     featured_image_url = "https://www.jpl.nasa.gov" + image_path
@@ -91,15 +89,14 @@ def scrape_mars_image():
 
     return mars_info
 
-# Mars Weather
 
+# Mars Weather
 
 def scrape_mars_weather():
 
     # Initialize browser
-    browser = init_browser()
 
-    # browser.is_element_present_by_css("div", wait_time=1)
+    browser = init_browser()
 
     # Visit Mars Weather Twitter through splinter module
     weather_url = 'https://twitter.com/marswxreport?lang=en'
@@ -116,6 +113,7 @@ def scrape_mars_weather():
 
     # Retrieve all elements that contain news title in the specified range
     # Look for entries that display weather related words to exclude non weather related tweets
+    # Added insight for tweet change
     for tweet in latest_tweets:
         weather_tweet = tweet.find('p').text
         if 'Sol' and 'pressure' and 'insight' in weather_tweet:
