@@ -118,7 +118,7 @@ def scrape_mars_weather():
     # Look for entries that display weather related words to exclude non weather related tweets
     for tweet in latest_tweets:
         weather_tweet = tweet.find('p').text
-        if 'Sol' and 'pressure' in weather_tweet:
+        if 'Sol' and 'pressure' and 'insight' in weather_tweet:
             print(weather_tweet)
             break
         else:
